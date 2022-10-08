@@ -92,13 +92,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_gravity="center"
+            android:orientation="vertical"
             >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="50sp"
-                android:text=""
-                />
             <Button
                 android:id="@+id/start_button"
                 android:layout_width="wrap_content"
@@ -106,23 +101,47 @@
                 android:layout_marginTop="15dp"
                 android:text="START"
                 />
+            <Button
+                android:id="@+id/show_answer_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="SHOW ANSWER"
+                />
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/answer_view"
-        android:layout_marginTop="100dp"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="answer"
-        />
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        >
 
+        <TextView
+            android:id="@+id/answer_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="answer"
+            android:visibility="gone"
+            />
+
+        <Button
+            android:id="@+id/practice_acaan_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ACAAN"
+            android:layout_marginTop="10dp"
+            />
+    </LinearLayout>
 
     <Button
-        android:id="@+id/practice_acaan_button"
+        android:id="@+id/test_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:text="ACAAN"
+        android:text="test"
+        android:layout_marginTop="10dp"
         />
 </LinearLayout>

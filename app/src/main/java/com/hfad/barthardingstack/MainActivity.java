@@ -4,11 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -81,12 +80,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button mButton;
     Button mPracticeAccanButton;
     Button mStartButton;
+    Button mShowAnswerButton;
+    Button mTestButton;
     TextView mTextView;
     TextView mAnswerView;
     TextView mAnswerCountView;
     TextView mWrongCountView;
     boolean isVisible;
     ArrayList<CardData> mArr;
+    private CustomDialog customDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +99,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mButton = (Button) findViewById(R.id.next_button);
         mPracticeAccanButton = (Button) findViewById(R.id.practice_acaan_button);
         mStartButton = (Button) findViewById(R.id.start_button);
+        mShowAnswerButton = (Button) findViewById(R.id.show_answer_button);
+        mTestButton = (Button) findViewById(R.id.test_button);
         mTextView = (TextView) findViewById(R.id.count_text_view);
         mAnswerView = (TextView) findViewById(R.id.answer_view);
         mAnswerCountView = (TextView) findViewById(R.id.answer_count_view);
@@ -104,9 +108,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mButton.setOnClickListener(this);
         mPracticeAccanButton.setOnClickListener(this);
         mStartButton.setOnClickListener(this);
+        mShowAnswerButton.setOnClickListener(this);
+        mTestButton.setOnClickListener(this);
         mTextView.setText(String.valueOf(deckSize));
         mArr = new ArrayList<CardData>();
         buildData();
+        setDimmingLayoutShowingDialog();
     }
 
     private void buildData() {
@@ -136,11 +143,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showImage2() {
         if (deckSize == 0) {
-            Toast.makeText(this, "Restart!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Restart!", Toast.LENGTH_SHORT).show();
+            showCustomPopup();
             deckSize = 52;
             wrongCount = 0;
             answerCount = 0;
             buildData();
+            mAnswerView.setVisibility(View.GONE);
         }
         ImageView imageView = (ImageView) findViewById(R.id.image_view);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -196,7 +205,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(this, PracticeAcaanActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.show_answer_button:
+                clickShowAnswerButton();
+                break;
+            case R.id.test_button:
+                clickTestButton();
+                break;
         }
+    }
+
+    private void clickShowAnswerButton() {
+        mAnswerView.setVisibility(View.VISIBLE);
+    }
+
+    private void clickTestButton() {
+        deckSize = 0;
+        answerCount = 50;
+        wrongCount = 1;
+        mAnswerCountView.setText(Integer.toString(answerCount));
+        mWrongCountView.setText(Integer.toString(wrongCount));
     }
 
     private void checkAnswer() {
@@ -252,6 +279,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
             finish();
         }
+    }
+
+    private void showCustomPopup() {
+        CustomDialogData data = new CustomDialogData(answerCount, wrongCount);
+        customDialog = new CustomDialog(this, data);
+        customDialog.show();
+    }
+
+    private void setDimmingLayoutShowingDialog() {
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        layoutParams.dimAmount = 0.8f;
+        getWindow().setAttributes(layoutParams);
     }
 
 }
