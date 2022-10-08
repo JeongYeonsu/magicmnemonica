@@ -83,6 +83,8 @@ public class PracticeAcaanActivity extends AppCompatActivity implements View.OnC
 
     Handler handler = new Handler(Looper.getMainLooper());
 
+    AdHelper adHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +100,7 @@ public class PracticeAcaanActivity extends AppCompatActivity implements View.OnC
 
         buildData();
 
-
+        adHelper = new AdHelper(this, null);
     }
 
 

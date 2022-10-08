@@ -13,8 +13,9 @@ public class CustomDialog extends Dialog {
     private TextView mCorrectTextView;
     private TextView mWrongTextView;
     private Button shutDownButton;
+    private CustomDialogCallback mCallback;
 
-    public CustomDialog(@NonNull Context context, CustomDialogData contents) {
+    public CustomDialog(@NonNull Context context, CustomDialogData contents, CustomDialogCallback callback) {
         super(context);
         setContentView(R.layout.custom_dialog);
 
@@ -25,6 +26,7 @@ public class CustomDialog extends Dialog {
         shutDownButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                callback.dialogDone();
                 dismiss();
             }
         });
@@ -33,6 +35,8 @@ public class CustomDialog extends Dialog {
         mWrongTextView = findViewById(R.id.wrong_dialog_text);
         mCorrectTextView.setText(String.valueOf(contents.getCorrectCnt()));
         mWrongTextView.setText(String.valueOf(contents.getWrongCnt()));
+
+        mCallback = callback;
     }
 
     private String getPercentStr(int correct) {

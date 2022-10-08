@@ -91,6 +91,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ArrayList<CardData> mArr;
     private CustomDialog customDialog;
 
+    AdCallback adCallback = new AdCallback() {
+        @Override
+        public void adDone(boolean isGoAcaan) {
+            if (isGoAcaan) {
+                callAcaanActivity();
+            }
+        }
+    };
+
+    CustomDialogCallback customDialogCallback = new CustomDialogCallback() {
+        @Override
+        public void dialogDone() {
+            adHelper.showFullAd(false);
+        }
+    };
+
     AdHelper adHelper;
 
     @Override
@@ -118,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buildData();
         setDimmingLayoutShowingDialog();
 
-        //adHelper = new AdHelper(this);
+        adHelper = new AdHelper(this, adCallback);
     }
 
     private void buildData() {
@@ -208,11 +224,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 setAnswerCountView();
                 break;
             case R.id.practice_acaan_button:
-                //randomCount();
-                Intent intent = new Intent(this, PracticeAcaanActivity.class);
-                startActivity(intent);
+                adHelper.showFullAd(true);
                 break;
             case R.id.show_answer_button:
+                adHelper.showFullAd(false);
                 clickShowAnswerButton();
                 break;
             case R.id.test_button:
@@ -241,6 +256,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         wrongCount = 1;
         mAnswerCountView.setText(Integer.toString(answerCount));
         mWrongCountView.setText(Integer.toString(wrongCount));
+
+        adHelper.showFullAd(false);
     }
 
     private void checkAnswer() {
@@ -300,7 +317,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showCustomPopup() {
         CustomDialogData data = new CustomDialogData(answerCount, wrongCount);
-        customDialog = new CustomDialog(this, data);
+        customDialog = new CustomDialog(this, data, customDialogCallback);
         customDialog.show();
     }
 
@@ -311,4 +328,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getWindow().setAttributes(layoutParams);
     }
 
+    private void callAcaanActivity() {
+        Intent intent = new Intent(this, PracticeAcaanActivity.class);
+        startActivity(intent);
+    }
 }
