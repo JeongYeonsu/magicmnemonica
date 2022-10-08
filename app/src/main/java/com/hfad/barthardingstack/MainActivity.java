@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -198,6 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.start_button:
                 setStartButtonGone();
                 showImage2();
+                setFocusTextview();
                 break;
             case R.id.next_button:
                 checkAnswer();
@@ -217,6 +219,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 clickTestButton();
                 break;
         }
+    }
+
+    private void setFocusTextview() {
+        EditText editText = (EditText) findViewById(R.id.input_answer_view);
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        if (editText != null) {
+            editText.requestFocus();
+        }
+        imm.showSoftInput(editText, 0);
     }
 
     private void clickShowAnswerButton() {
