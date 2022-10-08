@@ -3,19 +3,18 @@ package com.hfad.barthardingstack;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
 public class PracticeAcaanActivity extends AppCompatActivity implements View.OnClickListener{
+    boolean AdOn = false;
+
     int deckSize = 52;
 
     ImageView mAccanImageView;
@@ -100,7 +99,9 @@ public class PracticeAcaanActivity extends AppCompatActivity implements View.OnC
 
         buildData();
 
-        adHelper = new AdHelper(this, null);
+        if (AdOn) {
+            adHelper = new AdHelper(this, null);
+        }
     }
 
 
@@ -151,7 +152,6 @@ public class PracticeAcaanActivity extends AppCompatActivity implements View.OnC
 
     private void swapCard(int imageId) {
         if (deckSize > 0) {
-            //images[imageId] = images[--deckSize];
             CardData cardData = mArr.get(--deckSize);
             mArr.set(imageId, cardData);
         }

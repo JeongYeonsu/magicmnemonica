@@ -18,6 +18,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+    boolean AdOn = false;
+
     int deckSize = 52;
     int answerCount = 0;
     int wrongCount = 0;
@@ -87,14 +89,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView mAnswerView;
     TextView mAnswerCountView;
     TextView mWrongCountView;
-    boolean isVisible;
+
     ArrayList<CardData> mArr;
     private CustomDialog customDialog;
 
     AdCallback adCallback = new AdCallback() {
         @Override
         public void adDone(boolean isGoAcaan) {
-            if (isGoAcaan) {
+            if (AdOn && isGoAcaan) {
                 callAcaanActivity();
             }
         }
@@ -103,7 +105,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     CustomDialogCallback customDialogCallback = new CustomDialogCallback() {
         @Override
         public void dialogDone() {
-            adHelper.showFullAd(false);
+            if (AdOn) {
+                adHelper.showFullAd(false);
+            }
         }
     };
 
@@ -134,7 +138,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buildData();
         setDimmingLayoutShowingDialog();
 
-        adHelper = new AdHelper(this, adCallback);
+        if (AdOn) {
+            adHelper = new AdHelper(this, adCallback);
+        }
     }
 
     private void buildData() {
@@ -164,7 +170,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showImage2() {
         if (deckSize == 0) {
-            //Toast.makeText(this, "Restart!", Toast.LENGTH_SHORT).show();
             showCustomPopup();
             deckSize = 52;
             wrongCount = 0;
@@ -177,26 +182,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         int imageId = (int) (Math.random() * deckSize);
 
-//        if (imageId == 0) {
-//         //deck swapttr
-//         //deckSize--
-//         //get ImageId
-//            swapCard(imageId);
-//            imageId = (int) (Math.random() * deckSize);
-//        }
-
-        //imageView.setBackgroundResource(mArr.get(imageId).imgID);
         imageView.setImageResource(mArr.get(imageId).imgID);
         mAnswerView.setText(String.valueOf(mArr.get(imageId).index + 1));
 
         swapCard(imageId);
-        //mTextView.setText(String.valueOf(deckSize));
-
     }
 
     private void swapCard(int imageId) {
         if (deckSize > 0) {
-            //images[imageId] = images[--deckSize];
             CardData cardData = mArr.get(--deckSize);
             mArr.set(imageId, cardData);
         }
@@ -224,10 +217,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 setAnswerCountView();
                 break;
             case R.id.practice_acaan_button:
-                adHelper.showFullAd(true);
+                if (AdOn) {
+                    adHelper.showFullAd(true);
+                } else {
+                    callAcaanActivity();
+                }
                 break;
             case R.id.show_answer_button:
-                adHelper.showFullAd(false);
+                if (AdOn) {
+                    adHelper.showFullAd(false);
+                }
                 clickShowAnswerButton();
                 break;
             case R.id.test_button:
@@ -257,18 +256,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAnswerCountView.setText(Integer.toString(answerCount));
         mWrongCountView.setText(Integer.toString(wrongCount));
 
-        adHelper.showFullAd(false);
+        if (AdOn) {
+            adHelper.showFullAd(false);
+        }
     }
 
     private void checkAnswer() {
         String userInput = ((EditText) findViewById(R.id.input_answer_view)).getText().toString();
         String answer = mAnswerView.getText().toString();
-
-//        if (userInput.equals("")) {
-//            Log.i("TEST123", "-> userInput is Null, answer : " + answer);
-//        } else {
-//            Log.i("TEST123", "-> " + userInput + " answer : " + answer);
-//        }
 
         if (answer.equals(userInput)) {
             //Toast.makeText(this, "CORRECT !", Toast.LENGTH_SHORT).show();
@@ -288,20 +283,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mWrongCountView.setText(Integer.toString(wrongCount));
     }
 
-    private void randomCount() {
-        int[] nResult = new int[10];
-        int[] list = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-        int idx;
-        int nRand = 10;
-        for (int i = 0; i < 10; i++) {
-            idx = (int)(Math.random() * nRand);
-//            nResult[i] = list[idx];
-            Log.i("TEST123", " : " + list[idx]);
-            list[idx] = list[--nRand];
-        }
-
-    }
-
     @Override
     public void onBackPressed() {
         if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
@@ -317,7 +298,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showCustomPopup() {
         CustomDialogData data = new CustomDialogData(answerCount, wrongCount);
-        customDialog = new CustomDialog(this, data, customDialogCallback);
+        customDialog = new CustomDialog(this, data, customDialogCallback, AdOn);
         customDialog.show();
     }
 

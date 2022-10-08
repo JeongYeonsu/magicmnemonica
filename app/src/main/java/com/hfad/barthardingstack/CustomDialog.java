@@ -15,7 +15,7 @@ public class CustomDialog extends Dialog {
     private Button shutDownButton;
     private CustomDialogCallback mCallback;
 
-    public CustomDialog(@NonNull Context context, CustomDialogData contents, CustomDialogCallback callback) {
+    public CustomDialog(@NonNull Context context, CustomDialogData contents, CustomDialogCallback callback, boolean isAdOn) {
         super(context);
         setContentView(R.layout.custom_dialog);
 
@@ -26,7 +26,9 @@ public class CustomDialog extends Dialog {
         shutDownButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callback.dialogDone();
+                if (isAdOn) {
+                    callback.dialogDone();
+                }
                 dismiss();
             }
         });
