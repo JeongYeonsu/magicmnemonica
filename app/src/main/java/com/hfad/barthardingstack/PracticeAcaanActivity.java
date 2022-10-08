@@ -136,7 +136,7 @@ public class PracticeAcaanActivity extends AppCompatActivity implements View.OnC
 
         ImageView imageView = (ImageView) findViewById(R.id.accan_image_view);
         int imageId = (int) (Math.random() * deckSize);
-        imageView.setBackgroundResource(mArr.get(imageId).imgID);
+        imageView.setImageResource(mArr.get(imageId).imgID);
         swapCard(imageId);
 
         handler.postDelayed(new Runnable() {

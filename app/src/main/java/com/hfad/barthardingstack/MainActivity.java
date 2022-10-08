@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             buildData();
         }
         ImageView imageView = (ImageView) findViewById(R.id.image_view);
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         int imageId = (int) (Math.random() * deckSize);
 
 //        if (imageId == 0) {
@@ -153,7 +154,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            imageId = (int) (Math.random() * deckSize);
 //        }
 
-        imageView.setBackgroundResource(mArr.get(imageId).imgID);
+        //imageView.setBackgroundResource(mArr.get(imageId).imgID);
+        imageView.setImageResource(mArr.get(imageId).imgID);
         mAnswerView.setText(String.valueOf(mArr.get(imageId).index + 1));
 
         swapCard(imageId);
