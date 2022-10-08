@@ -90,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ArrayList<CardData> mArr;
     private CustomDialog customDialog;
 
+    AdHelper adHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +116,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mArr = new ArrayList<CardData>();
         buildData();
         setDimmingLayoutShowingDialog();
+
+        //adHelper = new AdHelper(this);
     }
 
     private void buildData() {
@@ -150,6 +154,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             answerCount = 0;
             buildData();
             mAnswerView.setVisibility(View.GONE);
+            mShowAnswerButton.setVisibility(View.VISIBLE);
         }
         ImageView imageView = (ImageView) findViewById(R.id.image_view);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -216,6 +221,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void clickShowAnswerButton() {
         mAnswerView.setVisibility(View.VISIBLE);
+        mShowAnswerButton.setVisibility(View.GONE);
     }
 
     private void clickTestButton() {

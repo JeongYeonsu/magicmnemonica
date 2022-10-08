@@ -18,8 +18,6 @@ import java.util.ArrayList;
 public class PracticeAcaanActivity extends AppCompatActivity implements View.OnClickListener{
     int deckSize = 52;
 
-    ActionBar mActionBar;
-
     ImageView mAccanImageView;
 
     TextView mAcaanNumberView;
@@ -91,9 +89,6 @@ public class PracticeAcaanActivity extends AppCompatActivity implements View.OnC
 
         setContentView(R.layout.practice_acaan_view);
 
-        mActionBar = getSupportActionBar();
-        mActionBar.setTitle("ACAAN");
-
         mAccanImageView = findViewById(R.id.accan_image_view);
         mAcaanNumberView = findViewById(R.id.accan_number_text);
         mAcaanNextButton = findViewById(R.id.next_practice_button);
@@ -144,7 +139,7 @@ public class PracticeAcaanActivity extends AppCompatActivity implements View.OnC
             public void run() {
                 setAcaanNumber();
             }
-        }, 3000);
+        }, 2000);
     }
 
     private void setAcaanNumber() {

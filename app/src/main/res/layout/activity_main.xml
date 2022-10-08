@@ -8,6 +8,17 @@
     android:gravity="center_horizontal"
     tools:context=".MainActivity">
 
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+    </com.google.android.gms.ads.AdView>
+
     <TextView
         android:id="@+id/count_text_view"
         android:layout_width="wrap_content"
@@ -49,7 +60,7 @@
     <ImageView
         android:id="@+id/image_view"
         android:layout_width="240dp"
-        android:layout_height="300dp"
+        android:layout_height="320dp"
         android:background="@drawable/image_boader"
         android:padding="2dp"
         />
@@ -83,6 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="NEXT"
+                android:background="@drawable/button_theme"
                 android:enabled="false"
                 />
         </LinearLayout>
@@ -99,6 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:backgroundTint="@color/skyblue"
                 android:text="START"
                 />
             <Button
@@ -107,6 +120,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="SHOW ANSWER"
+                android:backgroundTint="@color/light_gray"
                 />
         </LinearLayout>
     </LinearLayout>
@@ -132,6 +146,7 @@
             android:id="@+id/practice_acaan_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/light_green"
             android:text="ACAAN"
             android:layout_marginTop="10dp"
             />
@@ -143,5 +158,6 @@
         android:layout_height="wrap_content"
         android:text="test"
         android:layout_marginTop="10dp"
+        android:visibility="gone"
         />
 </LinearLayout>
