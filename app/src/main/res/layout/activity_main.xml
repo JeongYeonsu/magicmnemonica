@@ -16,7 +16,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+        ads:adUnitId="@string/real_banner_id">
     </com.google.android.gms.ads.AdView>
 
     <TextView
@@ -59,8 +59,8 @@
 
     <ImageView
         android:id="@+id/image_view"
-        android:layout_width="240dp"
-        android:layout_height="320dp"
+        android:layout_width="250dp"
+        android:layout_height="290dp"
         android:background="@drawable/image_boader"
         android:padding="2dp"
         />
@@ -110,7 +110,7 @@
                 android:id="@+id/start_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginVertical="15dp"
                 android:backgroundTint="@color/skyblue"
                 android:text="START"
                 />
@@ -118,7 +118,7 @@
                 android:id="@+id/show_answer_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="35dp"
                 android:text="SHOW ANSWER"
                 android:backgroundTint="@color/light_gray"
                 />
@@ -147,7 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/light_green"
-            android:text="ACAAN"
+            android:text="BONUS"
             android:layout_marginTop="10dp"
             />
     </LinearLayout>
@@ -158,6 +158,6 @@
         android:layout_height="wrap_content"
         android:text="test"
         android:layout_marginTop="10dp"
-        android:visibility="visible"
+        android:visibility="gone"
         />
 </LinearLayout>

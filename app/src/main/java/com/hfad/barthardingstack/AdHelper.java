@@ -24,7 +24,8 @@ public class AdHelper {
     private String TAG = "AdHelper";
     private AdView mAdView;
     private InterstitialAd mInterstitialAd;
-    private String FullAdId = "ca-app-pub-3940256099942544/1033173712";
+    private String TestFullAdId = "ca-app-pub-3940256099942544/1033173712";
+    private String RealFullAdId = "ca-app-pub-4082432260128751/6932781535";
     private AdCallback adCallback;
 
 
@@ -53,7 +54,7 @@ public class AdHelper {
     public void showFullAd(boolean isGoAcaan) {
         AdRequest adRequest = new AdRequest.Builder().build();
 
-        InterstitialAd.load(mContext,"ca-app-pub-3940256099942544/1033173712", adRequest,
+        InterstitialAd.load(mContext, RealFullAdId, adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
