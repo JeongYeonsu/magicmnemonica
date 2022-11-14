@@ -18,7 +18,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    boolean AdOn = true;
+    boolean AdOn = false;
 
     int deckSize = 52;
     int answerCount = 0;

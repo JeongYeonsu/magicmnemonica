@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public class PracticeAcaanActivity extends AppCompatActivity implements View.OnClickListener{
-    boolean AdOn = true;
+    boolean AdOn = false;
 
     int deckSize = 52;
 

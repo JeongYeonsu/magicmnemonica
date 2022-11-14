@@ -54,7 +54,7 @@ public class AdHelper {
     public void showFullAd(boolean isGoAcaan) {
         AdRequest adRequest = new AdRequest.Builder().build();
 
-        InterstitialAd.load(mContext, RealFullAdId, adRequest,
+        InterstitialAd.load(mContext, TestFullAdId, adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
